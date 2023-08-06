@@ -70,6 +70,19 @@ function startTimer(){
     } , 1000)
 }
 
+function setupAnswerChoices() {
+    var choiceHolder = document.getElementById("question-choices");
+    choicesHolder.innerHTML = '';
+
+    var currentChoices = questionBank[questionIndex].choices;
+    currentChoices.forEach(function (choiceObj) {
+        var choiceValue = choiceObj.value;
+        var choiceElement = document.createElement('buton');
+        choiceElement.textContent = choiceValue;
+        choiceElement.addEventListener('click', checkAnswer);
+        choicesHolder.appendChild(choiceElement)
+    });
+}
 
 function showQuestion() {
     var currentQuestion = questionBank[questionIndex];
@@ -77,8 +90,10 @@ function showQuestion() {
     var currentChoices = currentQuestion.choices;
     var promptHolder = document.getElementById("question-prompt");
     var choicesHolder = document.getElementById("question-choices");
+    var resultElement = document.querySelector('.result');
 
     promptHolder.textContent = currentPrompt;
+    resultElement.textContent = '';
 
 
     choicesHolder.innerHTML = '';
@@ -92,28 +107,70 @@ function showQuestion() {
     });
 }
 
-    
 
 function checkAnswer(event){
-    console.log("checkAnswer")
     var selectedChoice = event.target.textContent;
     var currentQuestion = questionBank[questionIndex];
     var option = currentQuestion.choices.filter((choice) => choice.value === selectedChoice); 
     console.log (option[0].correct); 
+
+    var resultElement = document.querySelector('.result');
+    resultElement.textContent = option[0].correct ? 'Correct' : 'Incorrect';
+
+    if (option[0].correct) {
+        score++;
+    } else {}
     secondsLeft = secondsLeft - 2;
-};
 
 
+// questionIndex++;
 
-    questionIndex++
-    showQuestion()
+// if(questionIndex < questionBank.length) {
+//     setTimeout(showQuestion, 1000);
+// } else {
+//     endGame();
+// }
 
+    setTimeout(function() {
+        questionIndex++;
+    
+    if(questionIndex < questionBank.length) {
+    secondsLeft = 10;
+        showQuestion();
+    } else {
+        endGame();
+    }
+}, 1000);
+
+}
+ 
+function checkResult (){
+
+}
 
 function endGame(){
-    console.log("Game over")
+    console.log("Game over");
+    displayScore();
     
 }
 
 function displayScore() {
     var quizContainerEl = document.getElementById("quiz-container");
-    quizContainerEl.innerHTML = "Your Score:" + score };
+    quizContainerEl.innerHTML = "Your Score:" + score; 
+};
+
+var playerNameInput = document.getElementById("player-name");
+var saveScoreButton = document.getElementById("save-score");
+saveScoreButton.addEventListener("click", saveScore);
+
+function saveScore() {
+    var playerName = playerNameInput.value.trim();
+    if (playerName !== "") {
+        var scores = JSON.parse(localStorage.getItem("scores")) || [];
+    scores.push({name: playerName, score:score});
+    localStorage.setItem("scores", JSON.stringify(scores));
+    alert("Saved!");
+} else {
+    alert ("Please enter your name to save score");
+};
+}
