@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css" />
+    <title>Coding Quiz</title>
+</head>
+
+<body>
+    <div id="begin">
+        <h1 class="quiz-title">Coding Quiz Challenge</h1>
+    
+        <P class="Rules">Rules</P>
+        <ul>
+            <li>You have 10 seconds to answer each question</li>
+            <li>Once you select an answer you cannot change it</li>
+            <li>You cannot exit from the quiz once started</li>
+            <li>Click "Start Quiz" to begin quiz</li>
+        </ul>
+        <button class="start-button" id="start">Start Quiz</button>
+        <button class="exit-button" id="exit">Exit Quiz</button>
+    </div>
+
+
+    <div class="container">
+        <div id="countdown-timer"></div>
+        <div id="quiz-container" class="hide">
+            <h1 id="question-prompt"></h1>
+            <ul id="question-choices"></ul>
+        </div>
+    </div>
+
+
+
+
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>
