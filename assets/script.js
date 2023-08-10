@@ -122,14 +122,8 @@ function checkAnswer(event){
     } else {}
     secondsLeft = secondsLeft - 2;
 
+console.log (questionIndex);
 
-// questionIndex++;
-
-// if(questionIndex < questionBank.length) {
-//     setTimeout(showQuestion, 1000);
-// } else {
-//     endGame();
-// }
 
     setTimeout(function() {
         questionIndex++;
@@ -151,6 +145,11 @@ function checkResult (){
 function endGame(){
     console.log("Game over");
     displayScore();
+
+    var playerNameInput = document.getElementById("player-name");
+    var saveScoreButton = document.getElementById("save-score")
+    playerNameInput.classList.remove("hide");
+    saveScoreButton.classList.remove("hide");
     
 }
 
@@ -159,11 +158,12 @@ function displayScore() {
     quizContainerEl.innerHTML = "Your Score:" + score; 
 };
 
-var playerNameInput = document.getElementById("player-name");
+// var playerNameInput = document.getElementById("player-name");
 var saveScoreButton = document.getElementById("save-score");
 saveScoreButton.addEventListener("click", saveScore);
 
 function saveScore() {
+    var playerNameInput = document.getElementById("player-name");
     var playerName = playerNameInput.value.trim();
     if (playerName !== "") {
         var scores = JSON.parse(localStorage.getItem("scores")) || [];
@@ -174,3 +174,5 @@ function saveScore() {
     alert ("Please enter your name to save score");
 };
 }
+
+
