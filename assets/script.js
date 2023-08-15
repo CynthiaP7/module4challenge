@@ -147,7 +147,7 @@ function endGame(){
     displayScore();
 
     var playerNameInput = document.getElementById("player-name");
-    var saveScoreButton = document.getElementById("save-score")
+    var saveScoreButton = document.getElementById("save-score");
     playerNameInput.classList.remove("hide");
     saveScoreButton.classList.remove("hide");
     
@@ -169,10 +169,28 @@ function saveScore() {
         var scores = JSON.parse(localStorage.getItem("scores")) || [];
     scores.push({name: playerName, score:score});
     localStorage.setItem("scores", JSON.stringify(scores));
-    alert("Saved!");
+    displayHighScores ();
 } else {
     alert ("Please enter your name to save score");
 };
 }
+
+function displayHighScores () {
+    var highScoreContainerEl = document.getElementById("high-score");
+    highScoreContainerEl.classList.remove("hide");
+    var quizContainerEl = document.querySelector(".container");
+    quizContainerEl.classList.add("hide");
+
+
+    var scores = JSON.parse(localStorage.getItem("scores")) || [];
+    for (var i = 0; i < scores.length ; i++) {
+        console.log (scores [i])
+    }
+   
+
+// create element is javascript then append to the for loop
+
+}
+
 
 
